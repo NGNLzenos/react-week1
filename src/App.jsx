@@ -54,16 +54,16 @@ function App() {
       ]
     }
   ]);
-
   return (
     <div className="container">
       <div className="row mt-5">
-        <div className="col-md-6">
-          <h2>產品列表</h2>
-          <table className="table">
+        <div className="col-6">
+          <h2 className='h2'>產品列表</h2>
+          <table className='table'>
             <thead>
               <tr>
-                <th>產品名稱</th>
+                <th>
+                  產品名稱</th>
                 <th>原價</th>
                 <th>售價</th>
                 <th>是否啟用</th>
@@ -72,52 +72,115 @@ function App() {
             </thead>
             <tbody>
               {products.map((item) => (
-                <tr key={item.id}>
+                <tr>
                   <td>{item.title}</td>
                   <td>{item.origin_price}</td>
                   <td>{item.price}</td>
-                  <td>
-                    {item.is_enabled === 1 ? "是" : "否"}
-                  </td>
-                  <td>
-                    <button className="btn btn-primary" onClick={() => setTempProduct(item)}>查看細節</button>
-                  </td>
+                  <td>{item.is_enabled === 1 ? "有" : "沒有"}</td>
+                  <td><button type='button' className=' btn btn-secondary' onClick={() => setTempProduct(item)}>查看細節</button></td>
                 </tr>
               ))}
+
             </tbody>
           </table>
         </div>
-        <div className="col-md-6">
-          <h2>單一產品細節</h2>
+        <div className="col-6">
+          <h2 className='h2'>單一產品細節</h2>
           {tempProduct ? (
             <div className="card mb-3">
-              <img src={tempProduct.imageUrl} className="card-img-top primary-image" alt="主圖" />
+              <div className="card-img">
+                <img src={tempProduct.imageUrl} alt="主圖" className='card-img-top primary-image' />
+              </div>
               <div className="card-body">
-                <h5 className="card-title">
-                  {tempProduct.title}
-                  <span className="badge bg-primary ms-2">{tempProduct.category}</span>
-                </h5>
-                <p className="card-text">商品描述：{tempProduct.description}</p>
-                <p className="card-text">商品內容：{tempProduct.content}</p>
+                <h3 className='h3'>{tempProduct.title}<span className='badge bg-primary ms-2'>{tempProduct.category}</span></h3>
+                <p className='card-text'>商品描述：{`${tempProduct.description}`}</p>
+                <p className='card-text'>商品內容：{`${tempProduct.content}`}</p>
                 <div className="d-flex">
-                  <p className="card-text text-secondary"><del>{tempProduct.origin_price}</del></p>
-                  元 / {tempProduct.price} 元
+                  <p className="card-text text-secondary me-3"><del>{tempProduct.origin_price}</del></p>
+                  <p className='card-text'>{`${tempProduct.price}`}元</p>
                 </div>
-                <h5 className="mt-3">更多圖片：</h5>
-                <div className="d-flex flex-wrap">
+
+                <h3>更多圖片</h3>
+                <div className="card-img">
                   {tempProduct.imagesUrl.map((url, index) => (
-                    <img key={index} src={url} className="img-fluid me-2 mb-2" alt={`圖片 ${index + 1}`} />
-                  ))}
+                    <img key={index} src={url} className='img-fluid' alt={`圖片 ${index + 1}`}></img>
+                  )
+                  )}
                 </div>
               </div>
             </div>
-          ) : (
-            <p className="text-secondary">請選擇一個商品查看</p>
+          ) : (<p className='h4 text-secondary'>請選一個商品查看</p>
           )}
+
         </div>
       </div>
     </div>
   );
 }
+
+//   return (
+//     <div className="container">
+//       <div className="row mt-5">
+//         <div className="col-md-6">
+//           <h2>產品列表</h2>
+//           <table className="table">
+//             <thead>
+//               <tr>
+//                 <th>產品名稱</th>
+//                 <th>原價</th>
+//                 <th>售價</th>
+//                 <th>是否啟用</th>
+//                 <th>查看細節</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {products.map((item) => (
+//                 <tr key={item.id}>
+//                   <td>{item.title}</td>
+//                   <td>{item.origin_price}</td>
+//                   <td>{item.price}</td>
+//                   <td>
+//                     {item.is_enabled === 1 ? "是" : "否"}
+//                   </td>
+//                   <td>
+//                     <button className="btn btn-primary" onClick={() => setTempProduct(item)}>查看細節</button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+//         <div className="col-md-6">
+//           <h2>單一產品細節</h2>
+//           {tempProduct ? (
+//             <div className="card mb-3">
+//               <img src={tempProduct.imageUrl} className="card-img-top primary-image" alt="主圖" />
+//               <div className="card-body">
+//                 <h5 className="card-title">
+//                   {tempProduct.title}
+//                   <span className="badge bg-primary ms-2">{tempProduct.category}</span>
+//                 </h5>
+//                 <p className="card-text">商品描述：{tempProduct.description}</p>
+//                 <p className="card-text">商品內容：{tempProduct.content}</p>
+//                 <div className="d-flex">
+//                   <p className="card-text text-secondary"><del>
+//                   元 / {tempProduct.price} 元
+//                 </div>
+//                 <h5 className="mt-3">更多圖片：</h5>
+//                 <div className="d-flex flex-wrap">
+//                   {tempProduct.imagesUrl.map((url, index) => (
+//                     <img key={index} src={url} className="img-fluid me-2 mb-2" alt={`圖片 ${index + 1}`} />
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           ) : (
+//             <p className="text-secondary">請選擇一個商品查看</p>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 export default App
